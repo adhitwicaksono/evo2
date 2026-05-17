@@ -195,3 +195,77 @@ Recommended output format:
 
 ```text
 sequence_id,length,mean_log_likelihood,mean_NLL,sum_log_likelihood,sum_NLL
+```
+
+---
+
+### Step 4: Score perturbed sequence
+
+Use biologically interpretable perturbations.
+
+Recommended perturbation types:
+
+- +1 insertion to simulate frameshift.
+- Single nucleotide substitution.
+- Synonymous codon substitution.
+- Non-synonymous codon substitution.
+- Codon-preserving shuffled region.
+- Motif disruption.
+
+Avoid relying only on fully shuffled sequences, because fully shuffled controls may behave similarly to random same-length sequences.
+
+---
+
+### Step 5: Generate continuation from real prefix
+
+For CDS continuation:
+
+1. Take a real prefix, for example the first 500 bp.
+2. Generate a defined number of downstream bases, for example 200 bp.
+3. Store both the full output and the generated tail only.
+
+Recommended output format:
+
+```text
+>gene_full_generated
+[prefix + generated sequence]
+
+>gene_generated_tail
+[generated sequence only]
+```
+
+---
+
+### Step 6: Validate the generated tail
+
+The generated tail should be evaluated separately.
+
+Recommended checks:
+
+- BLAST generated tail only.
+- Compare tail against the true downstream sequence if known.
+- Translate the full generated sequence.
+- Check for premature stop codons.
+- Check reading-frame preservation.
+- Check amino acid similarity.
+- Check low-complexity or repeat content.
+- Check homopolymer runs.
+- Check whether hits are plant-specific, gene-family-specific, or nonspecific.
+
+---
+
+### Step 7: Interpret cautiously
+
+Suggested interpretation categories:
+
+| Result | Interpretation |
+|---|---|
+| Low NLL + good BLAST + ORF preserved | Potentially coherent continuation |
+| Low NLL + repetitive or low-complexity sequence | Likely statistical predictability, not necessarily biological meaning |
+| Good full-sequence BLAST but poor tail-only BLAST | Result may be carried by the real prefix |
+| Poor BLAST but ORF preserved | May be novel-like or nonspecific; requires caution |
+| Frameshift or stop codons after generation | Not reliable as coding continuation |
+
+Recommended interpretation principle:
+
+> Evo 2 output should be treated as a hypothesis-generating sequence, not as validated biological sequence.
