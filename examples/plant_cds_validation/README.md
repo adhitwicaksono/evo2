@@ -196,3 +196,14 @@ prompt → generate/score → validate → compare → interpret cautiously
 ```
 
 For plant bioinformatics, Evo 2 is most useful as a guided sequence scoring and continuation assistant. Its outputs should be treated as hypotheses that require conventional biological validation.
+
+---
+
+## Optional helper script
+
+A lightweight CDS validation helper is provided:
+
+```bash
+python validate_cds_fasta.py \
+  --input plant_cds.fasta \
+  --output cds_validation_report.csv
