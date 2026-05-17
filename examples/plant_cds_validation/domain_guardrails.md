@@ -453,3 +453,14 @@ biological interpretation
 ```
 
 For plant bioinformatics, the most useful approach is not unconstrained generation, but constrained and validated sequence exploration.
+
+---
+
+## Repository Note
+
+External database files should not be committed to this repository. Users should download Pfam, Rfam, BLAST, or DIAMOND databases locally and keep them outside version control.
+
+Recommended location:
+
+```text
+databases/
